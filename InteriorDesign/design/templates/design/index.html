@@ -1,0 +1,23 @@
+ {% extends "base.html" %}
+{% block title %}Interior Design {% endblock %}
+{% block content %}
+
+    <div>
+        <nav class = "flex items-center bg-red-100">
+            <img src="{% static 'images/logo.png' %}" class = "w-15" alt="Logo" />
+            <h1 class="text-black px-2">Intefy</h1>
+            <ul class ="flex-1 text-center">
+        </ul>
+        
+        </nav>
+       <div class = "flex justify-center    ">
+        <img src="{% static 'images/Startingimage.jpg' %}" alt="Interior" class="max-w-full h-auto" />
+
+        </div>
+
+       <h1 class = "text-6xl font-bold leading-normal text-center text-green-700"> Always for you </h1>
+       <p class="text-xl leading-normal"> Welcome to Intefy, where innovative design meets comfort and elegance. 
+        Our passion is transforming spaces into personalized havens of style and functionality. Let us bring your vision to life and make your dream home a reality</p>
+
+    </div>
+  {% endblock %}
