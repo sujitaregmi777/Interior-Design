@@ -6,15 +6,32 @@
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
      
 </head>
-<body class="min-h-screen bg-gradient-to-br from-cyan-500 via-white">
-    <!-- <div class="max-w-4xl mx-auto mt-0 rounded-xl shadow-2xl p-8 bg-white"> -->
-        <nav class="flex justify-center space-x-8 mb-8 text-lg font-semibold"> 
-            <a href="{% url 'index' %}" class="text-blue-700 hover:underline underline-offset-4 transition">Home</a>
-            <a href="{% url 'about' %}" class="text-blue-700 hover:underline underline-offset-4 transition">About</a>
-            <a href="{% url 'features' %}" class="text-blue-700 hover:underline underline-offset-4 transition">Features</a>
-            <a href="{% url 'work' %}" class="text-blue-700 hover:underline underline-offset-4 transition">Our Work</a>
-            <a href="{% url 'contact' %}" class="text-blue-700 hover:underline underline-offset-4 transition">Contact</a>
-        </nav>
+<body class="min-h-screen bg-gradient-to-br from-cyan-500 via-blue">
+
+  <nav class="flex justify-between items-center px-6 py-4 bg-white shadow-md">
+
+    <div class="flex items-center space-x-2">
+      <img src="{% static 'images/logo.png' %}" class="w-10" alt="Logo" />
+      <h1 class="text-black font-bold text-xl">Intefy</h1>
+    </div>
+
+ 
+    <div class="absolute left-1/2 transform -translate-x-1/2 flex space-x-6 text-lg font-semibold">
+      <a href="{% url 'index' %}" class="text-blue-700 hover:underline underline-offset-4 transition">Home</a>
+      <a href="{% url 'about' %}" class="text-blue-700 hover:underline underline-offset-4 transition">About</a>
+      <a href="{% url 'features' %}" class="text-blue-700 hover:underline underline-offset-4 transition">Features</a>
+      <a href="{% url 'work' %}" class="text-blue-700 hover:underline underline-offset-4 transition">Our Work</a>
+      <a href="{% url 'contact' %}" class="text-blue-700 hover:underline underline-offset-4 transition">Contact</a>
+
+</div>
+    <div class="flex items-center space-x-4">
+        <a href="{% url 'login' %}" class="bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-800 transition">Login</a>
+        <a href="{% url 'register' %}" class="bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-800 transition">Register</a>
+    </div>
+
+       </nav>
+
+</body>
         <main>
             {% block content %}{% endblock %}
         </main>

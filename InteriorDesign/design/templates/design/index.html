@@ -1,15 +1,11 @@
- {% extends "base.html" %}
+
+{% extends "base.html" %} 
+{% load static %}
 {% block title %}Interior Design {% endblock %}
 {% block content %}
 
     <div>
-        <nav class = "flex items-center bg-red-100">
-            <img src="{% static 'images/logo.png' %}" class = "w-15" alt="Logo" />
-            <h1 class="text-black px-2">Intefy</h1>
-            <ul class ="flex-1 text-center">
-        </ul>
-        
-        </nav>
+
        <div class = "flex justify-center    ">
         <img src="{% static 'images/Startingimage.jpg' %}" alt="Interior" class="max-w-full h-auto" />
 
