@@ -1,5 +1,10 @@
 from django.shortcuts import render
 from django.contrib.auth.forms import UserCreationForm
+from django.shortcuts import redirect
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import AuthenticationForm
+
 
 def index(request):
     return render(request, 'design/index.html')
@@ -17,7 +22,8 @@ def contact(request):
     return render(request, 'design/contact.html')
 
 def login(request):
-    return render(request, 'design/login.html')
+    form = AuthenticationForm()
+    return render(request, 'design/login.html', {'form': form})
 
 def register(request):
     form = UserCreationForm(request.POST or None)

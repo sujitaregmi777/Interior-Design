@@ -1,5 +1,32 @@
+{% extends "base.html" %} 
+{% load static %}
+{% block title %}Register Page {% endblock %}
+{% block content %}
+
+<body>
+<div class="flex min-h-screen items-center justify-center bg-cover bg-center"
+style="background-image: url('https://assets-news.housing.com/news/wp-content/uploads/2022/02/18205828/Minimalist-interior-design-Tips-to-make-your-home-look-minimal.jpg');">
+
+    <div class="bg-gray-500 backdrop-blur-md rounded-xl shadow-2xl p-8 max-w-md w-full">
+      <div class="mb-8 text-center">
+        <img src="https://flowbite.com/docs/images/logo.svg" alt="Logo" class="mx-auto h-12 w-12 mb-2">
+        <h1 class="text-3xl font-bold text-gray-800">Welcome </h1>
+        <p class="font-bold text-black">Register your account</p>
+      </div>
+ 
 <form method="POST">
   {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Register</button>
+  {{ form }}
+  <button class="flex justify-center bg-blue-50 w-full" type="submit">Register</button>
 </form>
+</div>
+          <p class="mt-4 text-center text-black-600 text-sm">
+            Already have account?
+            <a href="{% url 'login' %}" class="text-blue-50 hover:underline font-medium">Login</a>
+          </p>
+
+</div>
+</body>
+
+{% endblock %}
+
