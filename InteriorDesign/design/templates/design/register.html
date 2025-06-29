@@ -16,15 +16,28 @@ style="background-image: url('https://assets-news.housing.com/news/wp-content/up
  
 <form method="POST">
   {% csrf_token %}
-  {{ form }}
+ <div class="mb-4 flex items-center">
+  <label class="w-32 font-semibold text-black-700">{{ form.username.label }}</label>
+  {{ form.username }}
+</div>
+
+<div class="mb-4 flex items-center">
+  <label class="w-32 font-semibold text-black-700">{{ form.password1.label }}</label>
+  {{ form.password1 }}
+</div>
+
+<div class="mb-4 flex items-center">
+  <label class="w-32 font-semibold text-black-700">{{ form.password2.label }}</label>
+  {{ form.password2 }}
+</div>
   <button class="flex justify-center bg-blue-50 w-full" type="submit">Register</button>
 </form>
-</div>
+
           <p class="mt-4 text-center text-black-600 text-sm">
             Already have account?
             <a href="{% url 'login' %}" class="text-blue-50 hover:underline font-medium">Login</a>
           </p>
-
+</div>
 </div>
 </body>
 

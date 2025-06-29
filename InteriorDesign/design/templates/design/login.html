@@ -12,6 +12,12 @@
         <h1 class="text-3xl font-bold text-gray-800">Welcome </h1>
         <p class="text-black-500">Please login to your account</p>
       </div>
+    {% if form.errors %}
+    <div class="mb-4 bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded">
+      <p>Invalid username or password. Please try again.</p>
+    </div>
+    {% endif %}
+    
       {% if messages %}
         <div class="mb-4">
           {% for message in messages %}
