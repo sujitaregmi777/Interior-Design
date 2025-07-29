@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path,reverse_lazy
 from django.contrib.auth import views as auth_views 
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.views import LogoutView
@@ -13,7 +13,7 @@ urlpatterns = [
     path('contact/', contact, name='contact'),
     path('login/', auth_views.LoginView.as_view(template_name='design/login.html'), name='login'),
     path('register/', register, name='register'),
-    path('logout/', LogoutView.as_view(next_page='design/login.html'), name='logout'),
+    path('logout/', logout_view , name='logout')
 
 
 ]

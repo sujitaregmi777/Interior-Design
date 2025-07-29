@@ -4,6 +4,24 @@
 {% block title %}Interior Design {% endblock %}
 {% block content %}
 
+
+{% if messages %}
+  <div class="max-w-2xl mx-auto my-4">
+    {% for message in messages %}
+      <div 
+        class="mb-4 px-4 py-3 rounded 
+               {% if message.tags == 'success' %} bg-green-100 text-green-800 
+               {% elif message.tags == 'error' %} bg-red-100 text-red-800
+               {% else %} bg-gray-100 text-gray-800 {% endif %}"
+        role="alert"
+      >
+        {{ message }}
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+
+
     <div>
 
        <div class = "flex justify-center    ">
