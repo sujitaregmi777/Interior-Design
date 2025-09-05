@@ -5,13 +5,15 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth import logout as django_logout
-
+from .forms import ContactForm , BookForm
+from django.core.mail import send_mail
 
 def index(request):
     return render(request, 'design/index.html')
 
-def about(request):
-    return render(request, 'design/about.html')
+def book(request):
+    form = BookForm()
+    return render(request, 'design/book.html' , {'form' : form})
 
 def features(request):
     return render(request, 'design/features.html')
@@ -21,7 +23,15 @@ def work(request):
 
 @login_required(login_url='login')
 def contact(request):
-    return render(request, 'design/contact.html')
+    send_mail(
+    "Subject here",
+    "Here is the message.",
+    "from@example.com",
+    ["sujitaregmi189@gmail.com"],
+    fail_silently=False,
+)
+    form = ContactForm()
+    return render(request, 'design/contact.html', {'form':form})
 
 def login(request):
     if request.method == 'POST':
