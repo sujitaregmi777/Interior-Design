@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login as auth_login
@@ -15,23 +16,41 @@ def book(request):
     form = BookForm()
     return render(request, 'design/book.html' , {'form' : form})
 
-def features(request):
-    return render(request, 'design/features.html')
+def explore(request):
+    return render(request, 'design/explore.html')
 
 def work(request):
     return render(request, 'design/work.html')
 
 @login_required(login_url='login')
 def contact(request):
-    send_mail(
-    "Subject here",
-    "Here is the message.",
-    "from@example.com",
-    ["sujitaregmi189@gmail.com"],
-    fail_silently=False,
-)
+    context = {}
     form = ContactForm()
-    return render(request, 'design/contact.html', {'form':form})
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        content = request.POST.get('content')
+
+        if name and email and content:
+            try:
+                send_mail(
+                    subject=f"Contact Form Submission from {name}",
+                    message=f"Email: {email}\n\nMessage:\n{content}",
+                    from_email=settings.EMAIL_HOST_USER,
+                    recipient_list=[settings.EMAIL_HOST_USER],
+                    fail_silently=False,
+                )
+
+
+
+                context['result'] = 'Email sent successfully'
+            except Exception as e:
+                context['result'] = f'Error sending email: {e}'
+        else:
+            context['result'] = 'All fields are required'
+    context['form'] = form
+
+    return render(request, 'design/contact.html', context)
 
 def login(request):
     if request.method == 'POST':

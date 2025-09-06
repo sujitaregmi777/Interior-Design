@@ -8,9 +8,9 @@ class ContactForm(forms.Form):
 class BookForm(forms.Form) :
     name = forms.CharField(max_length=255)
     email = forms.EmailField()
-    Design = forms.CharField(widget=forms.Textarea)
-    # color = forms.color
+    Design = forms.CheckboxSelectMultiple()
     others = forms.CharField(widget=forms.Textarea)
     refrences = forms.ImageField()
+    cost = forms.CharField()
     date = forms.DateField()
     
