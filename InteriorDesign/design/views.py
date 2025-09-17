@@ -6,7 +6,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth import logout as django_logout
-from .forms import ContactForm , BookForm
+from .forms import ContactForm , BookForm ,WorkForm
+from .forms import Work 
+from collections import namedtuple
 from django.core.mail import send_mail
 
 def index(request):
@@ -17,10 +19,18 @@ def book(request):
     return render(request, 'design/book.html' , {'form' : form})
 
 def explore(request):
-    return render(request, 'design/explore.html')
+    if request.method == "POST":
+        form = WorkForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('work')  
+    else:
+        form = WorkForm()
+    return render(request, 'design/explore.html' , {'form' : form})
 
 def work(request):
-    return render(request, 'design/work.html')
+    works = Work.objects.all()   # fetch everything from database
+    return render(request, 'design/work.html', {'works': works})
 
 @login_required(login_url='login')
 def contact(request):
