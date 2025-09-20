@@ -13,7 +13,7 @@
       </div>
 
 
-      <form method="POST" class="space-y-6">
+      <form method="POST"  enctype="multipart/form-data" class="space-y-6">
         {% csrf_token %}
         <div class="mb-4 flex items-center">
         <label class="w-32 font-semibold text-black-700">Name:</label>
@@ -28,21 +28,22 @@
         {{ form.design }}
         </div>
         <div class="mb-4 flex items-center">
-        <label class="w-32 font-semibold text-black-700">Color:</label>
-        {{ form.color }}
-        </div>
-        <div class="mb-4 flex items-center">
         <label class="w-32 font-semibold text-black-700">Extra Features:</label>
         {{ form.other }}
         </div>
         <div class="mb-4 flex items-center">
         <label class="w-32 font-semibold text-black-700">Refrences:</label>
-        {{ form.refrences }}
+        {{ form.references }}
+        </div> 
+        <div class="mb-4 flex items-center">
+        <label class="w-32 font-semibold text-black-700">Cost:</label>
+        {{ form.cost }}
         </div>
         <div class="mb-4 flex items-center">
         <label class="w-32 font-semibold text-black-700">Booking Date:</label>
         {{ form.date }}
         </div>
+
         <button type="submit" class="w-full py-3 px-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow transition">Book now</button>
         <div class="flex items-center my-6">
           <!-- <div class="flex-grow border-t border-gray-300"></div> -->

@@ -7,5 +7,5 @@ class Work(models.Model):
     cost = models.DecimalField(max_digits=10, decimal_places=2)
     story = models.TextField()
 
-    def __str__(self):
-        return self.name
+def __str__(self):
+    return self.name

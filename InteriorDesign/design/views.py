@@ -8,16 +8,56 @@ from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth import logout as django_logout
 from .forms import ContactForm , BookForm ,WorkForm
 from .forms import Work 
-from collections import namedtuple
 from django.core.mail import send_mail
 
 def index(request):
     return render(request, 'design/index.html')
 
+@login_required
 def book(request):
     form = BookForm()
-    return render(request, 'design/book.html' , {'form' : form})
+    context = {}
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        design = request.POST.get('design')
+        other = request.POST.get('other')
+        references = request.FILES.get('references')
+        cost = request.POST.get('cost')
+        date = request.POST.get('date')
+        
 
+        if name and email and design and other and cost and date:
+            try:
+                message=f"Email: {email}\n\nDesign:\n{design}\n\nOther : {other}\n\nCost :{cost}\n\nDate: {date}"
+
+                if references:
+                    message += f"References file: {references.image}"
+                else:
+                    message += "References: (not provided)"
+                send_mail(
+                    subject=f"Book Form Submission from {name}",
+                    message= message, 
+                    from_email=settings.EMAIL_HOST_USER,
+                    recipient_list=[settings.EMAIL_HOST_USER],
+                    fail_silently=False,
+                )
+
+                context['result'] = 'Email sent successfully'
+            except Exception as e:
+                context['result'] = f'Error sending email: {e}'
+        else:
+            context['result'] = 'All fields are required'
+
+        form = BookForm(request.POST, request.FILES)
+    else:
+        form = BookForm()
+
+    context['form'] = form
+
+    return render(request, 'design/book.html' , context)
+
+@login_required
 def explore(request):
     if request.method == "POST":
         form = WorkForm(request.POST, request.FILES)
@@ -28,8 +68,9 @@ def explore(request):
         form = WorkForm()
     return render(request, 'design/explore.html' , {'form' : form})
 
+@login_required
 def work(request):
-    works = Work.objects.all()   # fetch everything from database
+    works = Work.objects.all()   
     return render(request, 'design/work.html', {'works': works})
 
 @login_required(login_url='login')

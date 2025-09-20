@@ -9,11 +9,11 @@ class ContactForm(forms.Form):
 class BookForm(forms.Form) :
     name = forms.CharField(max_length=255)
     email = forms.EmailField()
-    Design = forms.CheckboxSelectMultiple()
-    others = forms.CharField(widget=forms.Textarea)
-    refrences = forms.ImageField()
-    cost = forms.CharField()
-    date = forms.DateField()
+    design = forms.CharField(max_length=255)
+    other = forms.CharField(widget=forms.Textarea)
+    references = forms.ImageField(required=False)
+    cost = forms.IntegerField()
+    date  = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
 
 class WorkForm(forms.ModelForm):
     class  Meta:
