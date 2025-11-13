@@ -8,50 +8,78 @@ from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth import logout as django_logout
 from .forms import ContactForm , BookForm ,WorkForm
 from .forms import Work 
-from django.core.mail import send_mail
+from django.core.mail import EmailMessage
+
 
 def index(request):
-    return render(request, 'design/index.html')
+    works = Work.objects.all() 
+    form = ContactForm()
+    context = {
+        'works': works,
+        
+        
+    }
+    return render(request, 'design/index.html', context)
 
 @login_required
 def book(request):
-    form = BookForm()
     context = {}
+    
     if request.method == 'POST':
-        name = request.POST.get('name')
-        email = request.POST.get('email')
-        design = request.POST.get('design')
-        other = request.POST.get('other')
-        references = request.FILES.get('references')
-        cost = request.POST.get('cost')
-        date = request.POST.get('date')
+        form = BookForm(request.POST , request.FILES)
         
-
-        if name and email and design and other and cost and date:
+        if form.is_valid():
             try:
+                name = request.POST.get('name')
+                email = request.POST.get('email')
+                design = request.POST.get('design')
+                other = request.POST.get('other')
+                references = request.FILES.get('references')
+                cost = request.POST.get('cost')
+                date = request.POST.get('date')
                 message=f"Email: {email}\n\nDesign:\n{design}\n\nOther : {other}\n\nCost :{cost}\n\nDate: {date}"
 
                 if references:
-                    message += f"References file: {references.image}"
+                    message += f"\nReferences file name: {references.name}"
+                
                 else:
                     message += "References: (not provided)"
-                send_mail(
+
+
+                email_message = EmailMessage(
                     subject=f"Book Form Submission from {name}",
-                    message= message, 
+                    body= message, 
                     from_email=settings.EMAIL_HOST_USER,
-                    recipient_list=[settings.EMAIL_HOST_USER],
-                    fail_silently=False,
+                    to=[settings.EMAIL_HOST_USER],
                 )
 
+                if references:
+                    email_message.attach(references.name, references.read(), references.content_type)
+
+                    email_message.send(fail_silently=False)
+
                 context['result'] = 'Email sent successfully'
+
             except Exception as e:
                 context['result'] = f'Error sending email: {e}'
         else:
             context['result'] = 'All fields are required'
 
-        form = BookForm(request.POST, request.FILES)
     else:
         form = BookForm()
+
+        design = request.GET.get('design')
+        cost = request.GET.get('cost')
+        image = request.GET.get('image')
+
+        if design:
+            form.fields['design'].initial = design
+        if cost:
+            form.fields['cost'].initial = cost
+        if image:
+            context['image'] = image
+
+
 
     context['form'] = form
 
@@ -84,7 +112,7 @@ def contact(request):
 
         if name and email and content:
             try:
-                send_mail(
+                EmailMessage(
                     subject=f"Contact Form Submission from {name}",
                     message=f"Email: {email}\n\nMessage:\n{content}",
                     from_email=settings.EMAIL_HOST_USER,

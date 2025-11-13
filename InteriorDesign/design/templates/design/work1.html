@@ -1,0 +1,21 @@
+<div class="container mx-auto px-4 py-8 bg-gray-300">
+  <h2 class="text-3xl font-bold mb-6 text-center">Our Interior Styles</h2>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    {% for style in works %}
+      <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition duration-300">
+          <img src="{{ style.image.url }}" alt="{{ style.name }}" class="w-full h-56 object-cover">
+        <div class="p-5">
+          <h3 class="text-xl font-semibold text-gray-800">{{ style.name }}</h3>
+          <p class="text-gray-500 text-sm mt-1">Cost: <span class="font-medium">Rs. {{ style.cost }}</span></p>
+          
+          <p class="text-gray-600 text-sm mt-3 line-clamp-3">{{ style.story }}</p>
+          <a href="{% url 'book' %}?design={{ style.name }}&cost={{ style.cost }}&image= {{ style.image.url }}" 
+             class="mt-4 inline-block px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+             Book this style
+            </a>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>

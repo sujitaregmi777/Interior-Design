@@ -3,51 +3,9 @@
 {% block title %}Contact Page {% endblock %}
 {% block content %}
 
-<body>
-  <div class="flex min-h-screen items-center justify-center bg-cover bg-center"
-    style="background-image: url('https://assets-news.housing.com/news/wp-content/uploads/2022/02/18205828/Minimalist-interior-design-Tips-to-make-your-home-look-minimal.jpg');">
-    <div class="bg-gray-500 backdrop-blur-md rounded-xl shadow-2xl p-8 max-w-md w-full">
-      <div class="mb-8 text-center">
-        <img src="https://flowbite.com/docs/images/logo.svg" alt="Logo" class="mx-auto h-12 w-12 mb-2">
-        <h1 class="text-3xl font-bold text-gray-800">Contact us </h1>
-      </div>
-
-      {% if result %}
-        <div class="mb-4 p-3 rounded-lg 
-                    {% if 'successfully' in result %}
-                      bg-green-100 text-green-700
-                    {% else %}
-                      bg-red-100 text-red-700
-                    {% endif %}">
-          {{ result }}
-        </div>
-      {% endif %}
-
-      <form method="POST" class="space-y-6">
-        {% csrf_token %}
-        <div class="mb-4 flex items-center">
-        <label class="w-32 font-semibold text-black-700">Name:</label>
-        {{ form.name }}
-        </div>
-        <div class="mb-4 flex items-center">
-        <label class="w-32 font-semibold text-black-700">Email:</label>
-        {{ form.email }}
-        </div>
-        <div class="mb-4 flex items-center">
-        <label class="w-32 font-semibold text-black-700">Content:</label>
-        {{ form.content }}
-        </div>
-        <button type="submit" class="w-full py-3 px-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow transition">Send message</button>
-        <div class="flex items-center my-6">
-          <!-- <div class="flex-grow border-t border-gray-300"></div> -->
-        </div>
-        <div>
-        </div>
-
-      </form>
-    </div>
-  </div>
-</body>
+<div>
+  {% include "design/contact1.html" %}
+</div>
 
 {% endblock %}  
 

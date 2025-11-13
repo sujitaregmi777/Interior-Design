@@ -1,15 +1,15 @@
-
 {% extends "base.html" %} 
 {% load static %}
+
 {% block title %}Interior Design {% endblock %}
+
 {% block content %}
-
-
+<!-- Displaying messages if any -->
 {% if messages %}
   <div class="max-w-2xl mx-auto my-4">
     {% for message in messages %}
       <div 
-        class="mb-4 px-4 py-3 rounded 
+        class="mb-4 px-6 py-4 rounded-lg shadow-lg
                {% if message.tags == 'success' %} bg-green-100 text-green-800 
                {% elif message.tags == 'error' %} bg-red-100 text-red-800
                {% else %} bg-gray-100 text-gray-800 {% endif %}"
@@ -21,17 +21,24 @@
   </div>
 {% endif %}
 
+<!-- Main content section with images and introductory text -->
+<div class="max-w-7xl mx-auto px-6 py-16">
+  <div class="text-center mb-16">
+    <img src="{% static 'images/Startingimage.jpg' %}" alt="Interior" class="mx-auto rounded-lg shadow-lg max-w-full h-auto" />
+    <h1 class="text-5xl font-extrabold text-green-700 mt-8">Always for You</h1>
+    <p class="text-lg leading-relaxed text-gray-600 mt-4 max-w-3xl mx-auto">Welcome to Intefy, where innovative design meets comfort and elegance. Our passion is transforming spaces into personalized havens of style and functionality. Let us bring your vision to life and make your dream home a reality.</p>
+  </div>
 
-    <div>
+  <!-- Work Section -->
+  <section id="work" class="min-h-screen py-12 bg-gray-50">
+    <h2 class="text-4xl font-semibold text-center text-gray-800 mb-12">Our Work</h2>
+    {% include "design/work1.html" %}
+  </section>
 
-       <div class = "flex justify-center    ">
-        <img src="{% static 'images/Startingimage.jpg' %}" alt="Interior" class="max-w-full h-auto" />
-
-        </div>
-
-       <h1 class = "text-6xl font-bold leading-normal text-center text-green-700"> Always for you </h1>
-       <p class="text-xl leading-normal"> Welcome to Intefy, where innovative design meets comfort and elegance. 
-        Our passion is transforming spaces into personalized havens of style and functionality. Let us bring your vision to life and make your dream home a reality</p>
-
-    </div>
-  {% endblock %}
+  <!-- Contact Section -->
+  <section id="contact" class="min-h-screen py-12 bg-gray-100">
+    <h2 class="text-4xl font-semibold text-center text-gray-800 mb-12">Contact Us</h2>
+    {% include "design/contact1.html" %}
+  </section>
+</div>
+{% endblock %}
